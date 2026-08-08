@@ -13,10 +13,17 @@ export class AuthService {
 
     const passwordHash = await bycript.hash(password, 10);
 
-    return this.authRepository.create({
+    const user = await this.authRepository.create({
       name,
       email,
       passwordHash,
     });
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      createdAt: user.createdAt,
+    };
   }
 }
